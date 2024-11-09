@@ -14,14 +14,21 @@ import Authentication from './vue/controllers/views/authentication/authenticatio
 import Dashboard from './vue/controllers/views/dashboard/dashboard.vue';
 // import Reservation from './vue/controllers/views/dashboard/modules/reservation.vue';
 import Reservation from './vue/controllers/views/reservation/reservation.vue';
+import { createPinia } from 'pinia';
+
+
+const pinia = createPinia();
 
 const auth = createApp(Authentication);
+auth.use(pinia)
 auth.mount('#autenticacion');
 
 const dashboard = createApp(Dashboard);
+dashboard.use(pinia)
 dashboard.mount('#panel');
 
 const reservation = createApp(Reservation);
+reservation.use(pinia);
 reservation.mount('#reserva');
 
 
