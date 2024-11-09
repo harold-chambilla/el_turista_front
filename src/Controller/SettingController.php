@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SettingController extends AbstractController
 {
-    // #[Route('/', name: 'app_redirect')]
-    // public function index(): Response
-    // {
-    //     return $this->redirectToRoute('app_login');
-    // }
+    #[Route('/', name: 'app_redirect')]
+    public function index(): Response
+    {
+        return $this->redirectToRoute('app_login');
+    }
 
     // #[Route('/error', name: 'app_redirect_error')]
     // public function error(): Response
