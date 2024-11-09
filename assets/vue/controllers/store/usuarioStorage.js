@@ -21,24 +21,22 @@ export const useUsuarioStore = defineStore('usuario', {
 
     actions: {
         // Acción para registrar un nuevo usuario
-        async registrarUsuario(datosUsuario) {
+        async registrarUsuario(datosUsuario, config = {}) {
             try {
-                const response = await axios.post(`${API_URL}/usuarios`, datosUsuario);
+                const response = await axios.post(`${API_URL}/usuarios`, datosUsuario, config);
                 
                 // Almacena los datos del usuario después de la creación
                 this.usuario = response.data;
                 
-                // Si la API devuelve un token al crear el usuario, se puede guardar así:
-                // this.token = response.data.token;
+                // Si la API devuelve un token, puedes almacenarlo aquí
+                if (response.data.token) {
+                    this.token = response.data.token;
+                    localStorage.setItem('token', this.token);
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+                }
 
                 // Guardar en localStorage
                 localStorage.setItem('usuario', JSON.stringify(this.usuario));
-                
-                // Si tienes un token de autenticación para el nuevo usuario, guarda el token
-                // localStorage.setItem('token', this.token);
-                
-                // Configura el token en axios para futuras solicitudes si es necesario
-                // axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
                 
             } catch (error) {
                 console.error('Error al registrar usuario:', error);
